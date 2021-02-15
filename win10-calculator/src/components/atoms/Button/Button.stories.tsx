@@ -4,7 +4,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import Button, { ButtonProps } from "./index";
 
 export default {
-    title: "Example/Button",
+    title: "Atoms/Button",
     component: Button,
     argTypes: {
         color: { control: "color" }
@@ -18,7 +18,8 @@ Number.args = {
     children: "5",
     color: "#ffffff",
     fontSize: "1.3rem",
-    bold: true
+    bold: true,
+    block: true
 };
 
 export const Util = Template.bind({});

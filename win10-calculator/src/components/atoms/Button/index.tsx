@@ -6,18 +6,14 @@ export interface ButtonProps {
     color?: string;
     dense?: boolean;
     bold?: boolean;
-    fontSize: number | string;
+    fontSize?: number | string;
+    block?: boolean;
 }
 
-interface ButtonBaseProps {
-    color: string;
-    dense: boolean;
-    bold: boolean;
-    fontSize: number | string;
-}
+type ButtonBaseProps = Omit<Required<ButtonProps>, "children">;
 
 const ButtonBase = styled.button<ButtonBaseProps>`
-    display: block;
+    ${({ block }) => (block ? "display: block; width: 100%" : "")};
 
     background-color: ${({ color }) => color};
     border: 1px solid ${({ color }) => color};
@@ -27,6 +23,7 @@ const ButtonBase = styled.button<ButtonBaseProps>`
 
     font-weight: ${({ bold }) => (bold ? "bold" : "normal")};
     font-size: ${({ fontSize }) => fontSize};
+    text-align: center;
 
     &:hover {
         background-color: ${({ color }) => darken(0.1, color)};
@@ -43,9 +40,16 @@ const ButtonBase = styled.button<ButtonBaseProps>`
 `;
 
 export default (function Button(props) {
-    const { children, color = "#f2f2f2", dense = false, bold = false, fontSize = "" } = props;
+    const {
+        children,
+        color = "#f2f2f2",
+        dense = false,
+        bold = false,
+        fontSize = "",
+        block = false
+    } = props;
     return (
-        <ButtonBase color={color} dense={dense} bold={bold} fontSize={fontSize}>
+        <ButtonBase color={color} dense={dense} bold={bold} fontSize={fontSize} block={block}>
             {children}
         </ButtonBase>
     );
