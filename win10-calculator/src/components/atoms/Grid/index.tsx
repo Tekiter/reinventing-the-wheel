@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export interface GridProps {
-    children: React.ReactNode;
-    height: number;
-    width: number;
-    noGap: boolean;
+    children?: React.ReactNode;
+    height?: number;
+    width?: number;
+    noGap?: boolean;
 }
 
 interface GridContainerProps {
