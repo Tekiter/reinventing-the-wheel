@@ -3,7 +3,11 @@ import { Button, Grid, Panel } from "../../atoms";
 import TeX from "@matejmazur/react-katex";
 
 export interface StandardKeypadProps {
-    onKey?(): void;
+    onKey?(event: KeyEvent): void;
+}
+
+export interface KeyEvent {
+    code: string;
 }
 
 interface KeyInfo {
@@ -41,12 +45,12 @@ const keymap: KeyInfo[] = [
         type: "secondary"
     },
     {
-        code: "root",
+        code: "sqrt",
         icon: <TeX math="\sqrt[2]{x}"></TeX>,
         type: "secondary"
     },
     {
-        code: "divide",
+        code: "/",
         icon: "\u00F7",
         type: "secondary"
     },
@@ -63,7 +67,7 @@ const keymap: KeyInfo[] = [
         type: "primary"
     },
     {
-        code: "multiply",
+        code: "*",
         icon: "\u00D7",
         type: "secondary"
     },
@@ -80,7 +84,7 @@ const keymap: KeyInfo[] = [
         type: "primary"
     },
     {
-        code: "subtract",
+        code: "-",
         icon: "\u2212",
         type: "secondary"
     },
@@ -97,7 +101,7 @@ const keymap: KeyInfo[] = [
         type: "primary"
     },
     {
-        code: "add",
+        code: "+",
         icon: "\u002B",
         type: "secondary"
     },
@@ -127,7 +131,9 @@ function getContent(key: KeyInfo): React.ReactNode {
     return key.code;
 }
 
-export default (function StandardKeypad() {
+export default (function StandardKeypad(props) {
+    const { onKey = () => {} } = props;
+
     const getColor = useCallback((key: KeyInfo): string => {
         if (key.type === "primary") {
             return "white";
@@ -140,11 +146,24 @@ export default (function StandardKeypad() {
         return "";
     }, []);
 
+    const handleClick = useCallback(
+        (code) => () => {
+            onKey({
+                code
+            });
+        },
+        []
+    );
+
     return (
         <Panel background="#f2f2f2" pa="0.2rem">
             <Grid width={4} height={6}>
                 {keymap.map((key) => (
-                    <Button key={key.code} color={getColor(key)} bold={key.type === "primary"}>
+                    <Button
+                        key={key.code}
+                        color={getColor(key)}
+                        bold={key.type === "primary"}
+                        onClick={handleClick(key.code)}>
                         {getContent(key)}
                     </Button>
                 ))}

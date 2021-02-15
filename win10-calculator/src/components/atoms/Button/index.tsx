@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { darken, readableColor } from "polished";
+import { MouseEvent } from "react";
 
 export interface ButtonProps {
     children: React.ReactNode;
@@ -8,6 +9,8 @@ export interface ButtonProps {
     bold?: boolean;
     fontSize?: number | string;
     block?: boolean;
+
+    onClick?(event: MouseEvent): void;
 }
 
 type ButtonBaseProps = Omit<Required<ButtonProps>, "children">;
@@ -39,18 +42,20 @@ const ButtonBase = styled.button<ButtonBaseProps>`
     }
 `;
 
+const fn = () => {};
+
+const defaultProps: Required<ButtonProps> = {
+    children: undefined,
+    color: "#f2f2f2",
+    dense: false,
+    bold: false,
+    fontSize: "",
+    block: false,
+    onClick: fn
+};
+
 export default (function Button(props) {
-    const {
-        children,
-        color = "#f2f2f2",
-        dense = false,
-        bold = false,
-        fontSize = "",
-        block = false
-    } = props;
-    return (
-        <ButtonBase color={color} dense={dense} bold={bold} fontSize={fontSize} block={block}>
-            {children}
-        </ButtonBase>
-    );
+    const newProps = { ...defaultProps, ...props };
+
+    return <ButtonBase {...newProps}></ButtonBase>;
 } as React.FC<ButtonProps>);

@@ -1,14 +1,16 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
-import StandardKeypad from "./StandardKeypad";
+import StandardKeypad, { StandardKeypadProps } from "./StandardKeypad";
 
 export default {
     title: "molecules/Keypad",
     component: StandardKeypad,
-    argTypes: {}
+
+    argTypes: { onKey: { action: "onKey" } }
 } as Meta;
 
-const Template: Story = (args) => <StandardKeypad {...args} />;
+const Template: Story<StandardKeypadProps> = (args) => <StandardKeypad {...args} />;
 
 export const Basic = Template.bind({});
+Basic.args = {};
