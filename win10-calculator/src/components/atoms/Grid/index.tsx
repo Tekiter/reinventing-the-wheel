@@ -16,8 +16,8 @@ interface GridContainerProps {
 const GridContainer = styled.div<GridContainerProps>`
     display: grid;
 
-    grid-template-columns: repeat(${({ width }) => width}, auto);
-    grid-template-rows: repeat(${({ height }) => height}, auto);
+    grid-template-columns: repeat(${({ width }) => width}, minmax(0, 1fr));
+    grid-template-rows: repeat(${({ height }) => height}, minmax(0, 1fr));
 
     ${({ noGap }) => (!noGap ? "column-gap: 3px; row-gap: 3px;" : null)}
 

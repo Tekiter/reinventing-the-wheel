@@ -1,4 +1,5 @@
 import React from "react";
+import "katex/dist/katex.min.css";
 
 import GlobalStyle from "./theme/GlobalStyle";
 

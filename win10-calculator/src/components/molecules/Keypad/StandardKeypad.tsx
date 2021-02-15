@@ -1,12 +1,13 @@
 import { useCallback } from "react";
 import { Button, Grid, Panel } from "../../atoms";
+import TeX from "@matejmazur/react-katex";
 
 export interface StandardKeypadProps {
     onKey?(): void;
 }
 
 interface KeyInfo {
-    content?: React.ReactNode;
+    icon?: React.ReactNode;
     code: string;
     type: "primary" | "secondary" | "accent";
 }
@@ -25,23 +26,28 @@ const keymap: KeyInfo[] = [
         type: "secondary"
     },
     {
-        code: "Backspace",
+        code: "backspace",
+        icon: "DEL",
         type: "secondary"
     },
     {
         code: "inverse",
+        icon: <TeX math="{}^1{\mskip -5mu/\mskip -3mu}_x"></TeX>,
         type: "secondary"
     },
     {
         code: "square",
+        icon: <TeX math="x^2"></TeX>,
         type: "secondary"
     },
     {
         code: "root",
+        icon: <TeX math="\sqrt[2]{x}"></TeX>,
         type: "secondary"
     },
     {
         code: "divide",
+        icon: "\u00F7",
         type: "secondary"
     },
     {
@@ -58,6 +64,7 @@ const keymap: KeyInfo[] = [
     },
     {
         code: "multiply",
+        icon: "\u00D7",
         type: "secondary"
     },
     {
@@ -74,6 +81,7 @@ const keymap: KeyInfo[] = [
     },
     {
         code: "subtract",
+        icon: "\u2212",
         type: "secondary"
     },
     {
@@ -90,10 +98,12 @@ const keymap: KeyInfo[] = [
     },
     {
         code: "add",
+        icon: "\u002B",
         type: "secondary"
     },
     {
         code: "complement",
+        icon: <TeX math="{}^+{\mskip -5mu/\mskip -3mu}_-"></TeX>,
         type: "primary"
     },
     {
@@ -111,8 +121,8 @@ const keymap: KeyInfo[] = [
 ];
 
 function getContent(key: KeyInfo): React.ReactNode {
-    if (key.content !== undefined) {
-        return key.content;
+    if (key.icon !== undefined) {
+        return key.icon;
     }
     return key.code;
 }
