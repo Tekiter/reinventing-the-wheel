@@ -10,20 +10,24 @@ export interface PanelProps {
     pr?: string | number;
     pt?: string | number;
     pb?: string | number;
+    py?: string | number;
+    px?: string | number;
 }
 
 type PanelDivProps = Omit<PanelProps, "children">;
 
-const defaultProps: Required<PanelProps> = {
+const defaultProps: PanelProps = {
     children: null,
     expand: false,
     background: "transparent",
 
     pa: 0,
-    pl: 0,
-    pr: 0,
-    pt: 0,
-    pb: 0
+    pl: undefined,
+    pr: undefined,
+    pt: undefined,
+    pb: undefined,
+    py: undefined,
+    px: undefined
 };
 
 const expandStyle = css`
@@ -35,8 +39,30 @@ const expandStyle = css`
 `;
 
 function calcPadding(props: PanelDivProps): string {
-    const { pa } = props;
+    const { pa, pt, pr, pb, pl, py, px } = props;
     const padding = [pa, pa, pa, pa];
+
+    if (py !== undefined) {
+        padding[0] = py;
+        padding[2] = py;
+    }
+    if (px !== undefined) {
+        padding[1] = px;
+        padding[3] = px;
+    }
+
+    if (pt !== undefined) {
+        padding[0] = pt;
+    }
+    if (pr !== undefined) {
+        padding[1] = pr;
+    }
+    if (pb !== undefined) {
+        padding[2] = pb;
+    }
+    if (pl !== undefined) {
+        padding[3] = pl;
+    }
 
     return padding.join(" ");
 }
