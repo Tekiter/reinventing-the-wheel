@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import styled from "styled-components";
 
 export interface ScreenProps {
@@ -18,6 +18,8 @@ const PrimaryBox = styled.div`
 const SecondaryBoxContainer = styled.div`
     font-size: 1rem;
     overflow-x: hidden;
+
+    height: 1.5em;
 `;
 
 function isOverflow(element: HTMLElement | null) {
@@ -31,6 +33,12 @@ function SecondaryBox(props: { children: React.ReactNode }) {
     const textRef = useRef<HTMLDivElement>(null);
 
     const overflow = useMemo(() => isOverflow(textRef.current), [props.children]);
+
+    // const content = useMemo(() => {
+    //     if (props.children === '') {
+
+    //     }
+    // },[props.children])
 
     useEffect(() => {}, [overflow]);
 
