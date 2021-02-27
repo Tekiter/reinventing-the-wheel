@@ -75,7 +75,6 @@ const keymap: KeyInfo[] = [
     },
     {
         code: "OPR*",
-        icon: "*",
         icon: "\u00D7",
         type: "secondary"
     },
